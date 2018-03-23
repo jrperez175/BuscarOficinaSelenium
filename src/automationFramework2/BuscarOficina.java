@@ -1,6 +1,5 @@
 package automationFramework2;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -46,7 +45,7 @@ public class BuscarOficina {
 
 		// Buscar Elemento ubicacion
 		WebElement ubicacion = driver.findElement(By.id("srch-term"));
-		
+
 		// Digitar informacion
 		ubicacion.sendKeys(direccionDeseada);
 
@@ -58,8 +57,7 @@ public class BuscarOficina {
 		esperartiempo(5);
 
 		// Verifica que exista una agencia cerca, en caso positivo la selecciona
-		
-		
+
 		noDireccion = driver.findElement(By.xpath("//*[@id='tab1']/div[1]/div[5]/label")).getText();
 
 		if (noDireccion.isEmpty()) {
@@ -69,25 +67,34 @@ public class BuscarOficina {
 					.getText();
 			WebElement agencia = driver.findElement(By.xpath("//*[@id='tab1']/div[1]/div[6]/div[1]/div/div[1]/button"));
 			agencia.click();
-			
-			//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", agencia);
-			
+
+			// Mover el scroll hacia abajo para poder observar las agencias listadas
+
+			// ((JavascriptExecutor)
+			// driver).executeScript("arguments[0].scrollIntoView(true);", agencia);
+			((JavascriptExecutor) driver).executeScript("window.scrollBy(0,250)", "");
+
+			esperartiempo(5);
+
+			// Mover el scroll hacia arriba para poder observar las agencia seleccionada
+
+			// ((JavascriptExecutor)
+			// driver).executeScript("arguments[0].scrollIntoView(true);", agencia);
+			// ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,-750)", "");
+
 			// Limpiar la busqueda inicial y se digita la direccion sugerida
-			esperartiempo(15);
+			esperartiempo(10);
 			ubicacion.clear();
 			ubicacion.sendKeys(direccionSugerida);
 
-			
-			// ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", agencia);
-
 		}
 
-		// Imprime en consola la Oficina y la direccion  sugerida
+		// Imprime en consola la Oficina y la direccion sugerida
 		JOptionPane.showMessageDialog(null, agenciaSugerida + " " + "Direccion: " + direccionSugerida + noDireccion);
 		System.out.println(agenciaSugerida + " " + "Direccion: " + direccionSugerida + noDireccion);
 
 		// Cierra la automatizacion
-		esperartiempo(5);
+		// esperartiempo(5);
 		driver.quit();
 
 	}
